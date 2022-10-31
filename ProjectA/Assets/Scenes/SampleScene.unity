@@ -2292,7 +2292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06486a7c67de1294eab1ada77b999595, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 2
   hp: 3
   target: {fileID: 1535891622}
   getDamage: 0
@@ -2551,12 +2551,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1535891622}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3252225d9fa3ef47a829fbfbdea63c0, type: 3}
+  m_Script: {fileID: 11500000, guid: 21e16ed690ac42c408ed90e267c3999e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 200
-  damage: 0
   hp: 5
+  weapon: {fileID: 2666963738748843309, guid: a76e038df3068bd41bf7c4025733c194, type: 3}
   point: {fileID: 1235245683}
   collisionLayer:
     serializedVersion: 2

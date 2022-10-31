@@ -52,8 +52,7 @@ public class Enemy : MonoBehaviour
             rb.velocity = new Vector2(deltaX, deltaY).normalized * speed;
         if (getDamage)
         {
-            rb.velocity = new Vector2(gameObject.transform.localScale.x, 0f) * -6f;
-            
+            rb.velocity = new Vector2(gameObject.transform.localScale.x, 0f) * -4f;
             StartCoroutine(ResetDamage());
         }
     }
@@ -68,12 +67,13 @@ public class Enemy : MonoBehaviour
 
     }
 
-    public void GetDamage(int damage)
+    public void TakeDamage(int damage)
     {
         hp -= damage;
         getDamage = true;
         
     }
+
     IEnumerator ResetDamage()
     {
         yield return new WaitForSeconds(0.5f);
