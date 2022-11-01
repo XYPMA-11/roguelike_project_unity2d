@@ -6,5 +6,6 @@ public class Player : MonoBehaviour
 {
     public float speed;
     public int hp;
+    public int armor;
     public Weapon weapon;
 }

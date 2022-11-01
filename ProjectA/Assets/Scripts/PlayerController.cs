@@ -64,6 +64,20 @@ public class PlayerController : Player
 
     }
 
+    void CollectItem(ItemTypes item)
+    {
+        Debug.Log(item.type);
+
+        Destroy(item.gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        
+            
+        
+    }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
