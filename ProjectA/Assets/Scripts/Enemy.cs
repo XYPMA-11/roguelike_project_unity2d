@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour
 
     [HideInInspector]
     public bool getDamage = false;
+    private float delayAttack = 2.5f;
+    private float distanceAttack = 1.5f;
 
     private bool faceRight = true;
 
@@ -35,8 +37,11 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
 
+
         var deltaX = target.transform.position.x - gameObject.transform.position.x;
         var deltaY = target.transform.position.y - gameObject.transform.position.y;
+
+        Vector2 vectorVelocity = new Vector2(deltaX, deltaY);
 
         if (deltaX > 0 && !faceRight)
         {
@@ -48,10 +53,27 @@ public class Enemy : MonoBehaviour
             Flip();
         }
 
-        if (!getDamage)
+        if (!getDamage && distanceAttack < vectorVelocity.magnitude)
+        {
             rb.velocity = new Vector2(deltaX, deltaY).normalized * speed;
+            delayAttack = 2.5f;
+        }
+            
+        else if (distanceAttack > vectorVelocity.magnitude)
+        {
+            delayAttack -= Time.deltaTime;
+            rb.velocity = Vector2.zero;
+            if (delayAttack <= 0)
+            {
+                Debug.Log("attack");
+                target.GetComponent<PlayerController>().TakeDamage();
+                delayAttack = 2.5f;
+            }
+
+        }
         if (getDamage)
         {
+            gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
             rb.velocity = new Vector2(gameObject.transform.localScale.x, 0f) * -4f;
             StartCoroutine(ResetDamage());
         }
@@ -78,6 +100,7 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         getDamage = false;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.grey;
 
     }
 

@@ -17,9 +17,12 @@ public class PlayerController : Player
 
     }
 
-    private void Update()
+    void Update()
     {
-        Attacks();
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Attacks();
+        }
     }
 
 
@@ -46,12 +49,15 @@ public class PlayerController : Player
         Collider2D[] hit = Physics2D.OverlapBoxAll(new Vector2(point.transform.position.x, point.transform.position.y), weapon.zoneAttack, 0f, collisionLayer);
 
         if (hit.Length > 0)
-            Debug.Log(hit[0].gameObject.layer);
-
-        if (Input.GetButtonDown("Fire1") && hit.Length > 0)
         {
             hit[0].GetComponent<Enemy>().TakeDamage(weapon.damage);
         }
+    }
+
+    public void TakeDamage()
+    {
+        hp -= 1;
+        rb.AddForce(Vector2.left * 1f, ForceMode2D.Impulse);
     }
 
     void Flip()
@@ -69,13 +75,6 @@ public class PlayerController : Player
         Debug.Log(item.type);
 
         Destroy(item.gameObject);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        
-            
-        
     }
 
     void OnDrawGizmosSelected()

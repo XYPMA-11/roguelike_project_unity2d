@@ -9,7 +9,7 @@ public class ArmorItem : ItemTypes
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<Player>().armor += armor;
             Destroy(gameObject);
