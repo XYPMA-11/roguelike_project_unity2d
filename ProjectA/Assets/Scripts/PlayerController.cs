@@ -23,15 +23,22 @@ public class PlayerController : Player
         {
             Attacks();
         }
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            Dash();
+        }
     }
 
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        var deltaX = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
-        var deltaY = Input.GetAxis("Vertical") * speed * Time.deltaTime;
-        rb.velocity = new Vector2(deltaX, deltaY);
+        var deltaX = Input.GetAxis("Horizontal") * speed;
+        var deltaY = Input.GetAxis("Vertical") * speed;
+
+
+        rb.velocity = new Vector2(deltaX, deltaY) * Time.deltaTime;
 
         if (deltaX > 0 && !faceRight)
         {
@@ -54,9 +61,16 @@ public class PlayerController : Player
         }
     }
 
+    void Dash()
+    {
+        Vector2 force = new Vector2(transform.localScale.x, 0);
+        rb.velocity = force * 10f;
+    }
+
     public void TakeDamage()
     {
-        hp -= 1;
+        var damage = 1 - armor;
+        hp -= damage;
         rb.AddForce(Vector2.left * 1f, ForceMode2D.Impulse);
     }
 

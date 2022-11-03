@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ArmorItem : ItemTypes
 {
-    public int armor;
+    public float armor;
 
 
     void OnTriggerEnter2D(Collider2D collision)

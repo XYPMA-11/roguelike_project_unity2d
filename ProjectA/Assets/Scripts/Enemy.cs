@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public float speed;
-    public int hp;
+    public float hp;
     public GameObject target;
 
     [HideInInspector]
