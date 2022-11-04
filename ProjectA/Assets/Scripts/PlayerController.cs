@@ -1,14 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : Player
 {
     public GameObject point;
-    public LayerMask collisionLayer;
+    public LayerMask enemyLayer;
+    public LayerMask itemLayer;
     Rigidbody2D rb;
 
     private bool faceRight = true;
+
+    private GameObject item;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,14 @@ public class PlayerController : Player
         {
             Dash();
         }
+
+        if (Input.GetKeyDown(KeyCode.E) && gameObject.GetComponent<Collider2D>().IsTouchingLayers(itemLayer))
+        {
+            Vector3 vector = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 0);
+            Instantiate(weapon, vector, Quaternion.identity);
+            weapon = item.GetComponent<Weapon>();
+            item.SetActive(false);
+        }
     }
 
 
@@ -36,7 +45,6 @@ public class PlayerController : Player
     {
         var deltaX = Input.GetAxis("Horizontal") * speed;
         var deltaY = Input.GetAxis("Vertical") * speed;
-
 
         rb.velocity = new Vector2(deltaX, deltaY) * Time.deltaTime;
 
@@ -53,7 +61,7 @@ public class PlayerController : Player
 
     void Attacks()
     {
-        Collider2D[] hit = Physics2D.OverlapBoxAll(new Vector2(point.transform.position.x, point.transform.position.y), weapon.zoneAttack, 0f, collisionLayer);
+        Collider2D[] hit = Physics2D.OverlapBoxAll(new Vector2(point.transform.position.x, point.transform.position.y), weapon.zoneAttack, 0f, enemyLayer);
 
         if (hit.Length > 0)
         {
@@ -64,7 +72,7 @@ public class PlayerController : Player
     void Dash()
     {
         Vector2 force = new Vector2(transform.localScale.x, 0);
-        rb.velocity = force * 10f;
+        rb.velocity += force * 10f;
     }
 
     public void TakeDamage()
@@ -89,6 +97,12 @@ public class PlayerController : Player
         Debug.Log(item.type);
 
         Destroy(item.gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Weapon"))
+            item = collision.gameObject;
     }
 
     void OnDrawGizmosSelected()
