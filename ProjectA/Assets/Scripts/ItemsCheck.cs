@@ -33,7 +33,7 @@ public class ItemsCheck : MonoBehaviour
             armorPannel.GetComponentInChildren<Text>().text = armor.ToString();
         }
 
-        if (weapon != player.weapon.GetComponent<Weapon>())
+        if (weapon != null && weapon != player.weapon.GetComponent<Weapon>())
         {
             weapon = player.weapon.GetComponent<Weapon>();
             weaponPannel.GetComponentInChildren<Text>().text = weapon.name;

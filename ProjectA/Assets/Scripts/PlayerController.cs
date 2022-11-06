@@ -1,21 +1,27 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PlayerController : Player
 {
     public GameObject point;
     public LayerMask enemyLayer;
     public LayerMask itemLayer;
+    public LayerMask placeLayer;
+    public GameObject checkItem;
+
     Rigidbody2D rb;
 
     private bool faceRight = true;
 
     private GameObject item;
+    private Weapon currentWeapon;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-
+        currentWeapon = Instantiate(weapon);
+        currentWeapon.gameObject.SetActive(false);
     }
 
     void Update()
@@ -33,9 +39,18 @@ public class PlayerController : Player
         if (Input.GetKeyDown(KeyCode.E) && gameObject.GetComponent<Collider2D>().IsTouchingLayers(itemLayer))
         {
             Vector3 vector = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 0);
-            Instantiate(weapon, vector, Quaternion.identity);
+            currentWeapon.transform.position = vector;
+            currentWeapon.gameObject.SetActive(true);
             weapon = item.GetComponent<Weapon>();
             item.SetActive(false);
+            currentWeapon = weapon;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) && gameObject.GetComponent<Collider2D>().IsTouchingLayers(placeLayer))
+        {
+            Vector3 vector = new Vector3(gameObject.transform.position.x + 1, gameObject.transform.position.y, 0);
+            Instantiate(checkItem, vector, Quaternion.identity);
+            Debug.Log("drop");
         }
     }
 
@@ -92,12 +107,6 @@ public class PlayerController : Player
 
     }
 
-    void CollectItem(ItemTypes item)
-    {
-        Debug.Log(item.type);
-
-        Destroy(item.gameObject);
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

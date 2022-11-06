@@ -8,4 +8,9 @@ public class Weapon : MonoBehaviour
     public Vector2 zoneAttack;
     public int damage;
 
+    public void Use()
+    {
+        Destroy(gameObject);
+    }
+
 }
