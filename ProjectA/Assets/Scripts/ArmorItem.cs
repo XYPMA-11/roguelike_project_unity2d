@@ -12,6 +12,7 @@ public class ArmorItem : ItemTypes
         if (collision.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<Player>().armor += armor;
+            collision.gameObject.GetComponent<PlayerController>().currentArmor = gameObject.GetComponent<ArmorItem>();
             Destroy(gameObject);
             
         }

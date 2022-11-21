@@ -8,6 +8,8 @@ public class ItemTypes : MonoBehaviour
 
     public ItemType type;
 
+    public Sprite item;
+
     public virtual void Use()
     {
 

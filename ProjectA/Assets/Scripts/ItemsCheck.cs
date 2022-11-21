@@ -21,7 +21,6 @@ public class ItemsCheck : MonoBehaviour
         weapon = player.weapon.GetComponent<Weapon>();
         armor = player.armor;
         weaponPannel.GetComponentInChildren<Text>().text = weapon.name;
-        armorPannel.GetComponentInChildren<Text>().text = armor.ToString();
     }
 
     // Update is called once per frame
@@ -30,7 +29,10 @@ public class ItemsCheck : MonoBehaviour
         if (armor != player.armor)
         {
             armor = player.armor;
-            armorPannel.GetComponentInChildren<Text>().text = armor.ToString();
+            armorPannel.transform.GetChild(0).GetComponent<Image>().sprite = player.GetComponent<PlayerController>().currentArmor.item;
+            armorPannel.transform.GetChild(0).gameObject.SetActive(true);
+
+
         }
 
         if (weapon != null && weapon != player.weapon.GetComponent<Weapon>())

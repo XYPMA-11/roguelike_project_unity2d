@@ -8,6 +8,7 @@ public class PlayerController : Player
     public LayerMask itemLayer;
     public LayerMask placeLayer;
     public GameObject checkItem;
+    public ArmorItem currentArmor;
 
     Rigidbody2D rb;
 
@@ -76,6 +77,9 @@ public class PlayerController : Player
 
     void Attacks()
     {
+        Debug.Log("ata");
+        weapon.animAttack.transform.localScale = gameObject.transform.localScale;
+        Instantiate(weapon.animAttack, point.transform.position, Quaternion.identity);
         Collider2D[] hit = Physics2D.OverlapBoxAll(new Vector2(point.transform.position.x, point.transform.position.y), weapon.zoneAttack, 0f, enemyLayer);
 
         if (hit.Length > 0)

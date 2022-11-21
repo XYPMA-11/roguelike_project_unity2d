@@ -7,6 +7,7 @@ public class Weapon : MonoBehaviour
     public float delayAttack;
     public Vector2 zoneAttack;
     public int damage;
+    public GameObject animAttack;
 
     public void Use()
     {
