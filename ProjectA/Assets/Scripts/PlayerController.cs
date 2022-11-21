@@ -49,9 +49,17 @@ public class PlayerController : Player
 
         if (Input.GetKeyDown(KeyCode.E) && gameObject.GetComponent<Collider2D>().IsTouchingLayers(placeLayer))
         {
-            Vector3 vector = new Vector3(gameObject.transform.position.x + 1, gameObject.transform.position.y, 0);
-            Instantiate(checkItem, vector, Quaternion.identity);
-            Debug.Log("drop");
+            Vector3 vec = new Vector3(gameObject.transform.position.x + gameObject.transform.localScale.x, gameObject.transform.position.y, 0);
+            var filter = new ContactFilter2D
+            {
+                useTriggers = true,
+                layerMask = placeLayer,
+                useLayerMask = true
+            };
+            Collider2D[] hit = new Collider2D[1];
+            gameObject.GetComponent<Collider2D>().OverlapCollider(filter, hit);
+            //Instantiate(checkItem, vector, Quaternion.identity);
+            hit[0].GetComponent<GetDrop>().TakeDrop(vec);
         }
     }
 
@@ -116,6 +124,7 @@ public class PlayerController : Player
     {
         if (collision.CompareTag("Weapon"))
             item = collision.gameObject;
+        
     }
 
     void OnDrawGizmosSelected()
