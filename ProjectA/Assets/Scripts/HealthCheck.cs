@@ -8,7 +8,6 @@ public class HealthCheck : MonoBehaviour
     public GameObject hp;
     public Player player;
 
-    private GameObject[] arrayHp = new GameObject[5];
     private List<GameObject> listHp = new List<GameObject>();
     // Start is called before the first frame update
     void Start()

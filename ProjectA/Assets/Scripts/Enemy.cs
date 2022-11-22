@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (hp == 0)
+        if (hp <= 0)
         {
             Destroy(gameObject);
         }
