@@ -17809,6 +17809,10 @@ MonoBehaviour:
     m_Bits: 2048
   checkItem: {fileID: 3059647120780526834, guid: 459a010f6b364194b8fd69b630fb2022, type: 3}
   currentArmor: {fileID: 0}
+  upSprite: {fileID: 21300000, guid: 2621d3e7ff61a0745ba741dd102d5f44, type: 3}
+  downSprite: {fileID: 21300000, guid: 294c9a65c38265a4cbede7c36783aa83, type: 3}
+  leftSprite: {fileID: 21300000, guid: 870f427945c2ffc4ba71beeda005c704, type: 3}
+  rightSprite: {fileID: 21300000, guid: 91d503387bd24194abc5c1bdf03019be, type: 3}
 --- !u!1 &1541387090
 GameObject:
   m_ObjectHideFlags: 0

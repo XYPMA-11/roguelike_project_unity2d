@@ -10,12 +10,17 @@ public class PlayerController : Player
     public GameObject checkItem;
     public ArmorItem currentArmor;
 
+    public Sprite upSprite;
+    public Sprite downSprite;
+    public Sprite leftSprite;
+    public Sprite rightSprite;
+
     Rigidbody2D rb;
 
-    private bool faceRight = true;
-
     private GameObject item;
+    private float angleAttack = 0f;
     private Weapon currentWeapon;
+    private SpriteRenderer spriteCurrent;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +28,7 @@ public class PlayerController : Player
         rb = GetComponent<Rigidbody2D>();
         currentWeapon = Instantiate(weapon);
         currentWeapon.gameObject.SetActive(false);
+        spriteCurrent = gameObject.GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -58,9 +64,9 @@ public class PlayerController : Player
             };
             Collider2D[] hit = new Collider2D[1];
             gameObject.GetComponent<Collider2D>().OverlapCollider(filter, hit);
-            //Instantiate(checkItem, vector, Quaternion.identity);
             hit[0].GetComponent<GetDrop>().TakeDrop(vec);
         }
+
     }
 
 
@@ -72,24 +78,33 @@ public class PlayerController : Player
 
         rb.velocity = new Vector2(deltaX, deltaY) * Time.deltaTime;
 
-        if (deltaX > 0 && !faceRight)
+        if (deltaX > 0)
         {
-            Flip();
+            Flipe(rightSprite, 0.8f, 0f, 0f, 1);
         }
 
-        if (deltaX < 0 && faceRight)
+        if (deltaX < 0 )
         {
-            Flip();
+            Flipe(leftSprite, -0.8f, 0f, 0f, -1);
+        }
+
+        if (deltaY > 0)
+        {
+            Flipe(upSprite, 0f, 0.8f, 90f, 1);
+        }
+
+        if (deltaY < 0 )
+        {
+            Flipe(downSprite, 0f, -0.8f, 90f, -1);
         }
     }
 
     void Attacks()
     {
         Debug.Log("ata");
-        weapon.animAttack.transform.localScale = gameObject.transform.localScale;
-        Instantiate(weapon.animAttack, point.transform.position, Quaternion.identity);
-        Collider2D[] hit = Physics2D.OverlapBoxAll(new Vector2(point.transform.position.x, point.transform.position.y), weapon.zoneAttack, 0f, enemyLayer);
-
+        //weapon.animAttack.transform.localScale = gameObject.transform.localScale;
+        Instantiate(weapon.animAttack, point.transform.position, weapon.animAttack.transform.rotation);
+        Collider2D[] hit = Physics2D.OverlapBoxAll(new Vector2(point.transform.position.x, point.transform.position.y), weapon.zoneAttack, angleAttack, enemyLayer);
         if (hit.Length > 0)
         {
             hit[0].GetComponent<Enemy>().TakeDamage(weapon.damage);
@@ -109,14 +124,14 @@ public class PlayerController : Player
         rb.AddForce(Vector2.left * 1f, ForceMode2D.Impulse);
     }
 
-    void Flip()
+
+    void Flipe(Sprite sprite, float x, float y, float angle, int scaleX)
     {
-        Vector3 currentScale = gameObject.transform.localScale;
-        currentScale.x *= -1;
-        gameObject.transform.localScale = currentScale;
-
-        faceRight = !faceRight;
-
+        spriteCurrent.sprite = sprite;
+        point.transform.localPosition = new Vector3(x, y, 0f);
+        angleAttack = angle;
+        weapon.animAttack.transform.rotation = Quaternion.Euler(0, 0, angle);
+        weapon.animAttack.transform.localScale = new Vector3(scaleX, 1, 1);
     }
 
 
@@ -134,6 +149,8 @@ public class PlayerController : Player
         var x = weapon.zoneAttack.x;
         var y = weapon.zoneAttack.y;
         Vector3 size = new Vector3(x, y, 0);
+        size = Quaternion.Euler(0, 0, angleAttack) * size;
+ 
         Gizmos.DrawWireCube(center, size);
     }
 }
