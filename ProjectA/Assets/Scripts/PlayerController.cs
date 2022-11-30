@@ -16,6 +16,7 @@ public class PlayerController : Player
     public Sprite rightSprite;
 
     Rigidbody2D rb;
+    Animator anim;
 
     private GameObject item;
     private float angleAttack = 0f;
@@ -26,6 +27,7 @@ public class PlayerController : Player
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         currentWeapon = Instantiate(weapon);
         currentWeapon.gameObject.SetActive(false);
         spriteCurrent = gameObject.GetComponent<SpriteRenderer>();
@@ -33,6 +35,7 @@ public class PlayerController : Player
 
     void Update()
     {
+
         if (Input.GetButtonDown("Fire1"))
         {
             Attacks();
@@ -80,23 +83,34 @@ public class PlayerController : Player
 
         if (deltaX > 0)
         {
-            Flipe(rightSprite, 0.8f, 0f, 0f, 1);
+            Flipe(rightSprite, 0.8f, 0f, 0f, 1, 3);
         }
 
-        if (deltaX < 0 )
+        if (deltaX < 0)
         {
-            Flipe(leftSprite, -0.8f, 0f, 0f, -1);
+            Flipe(leftSprite, -0.8f, 0f, 0f, -1, 1);
+
         }
 
         if (deltaY > 0)
         {
-            Flipe(upSprite, 0f, 0.8f, 90f, 1);
+            Flipe(upSprite, 0f, 0.8f, 90f, 1, 2);
+
         }
 
-        if (deltaY < 0 )
+        if (deltaY < 0)
         {
-            Flipe(downSprite, 0f, -0.8f, 90f, -1);
+            Flipe(downSprite, 0f, -0.8f, 90f, -1, 0);
+
         }
+
+        if (deltaX == 0 && deltaY == 0)
+        {
+            anim.enabled = false;
+        }
+
+
+
     }
 
     void Attacks()
@@ -125,13 +139,15 @@ public class PlayerController : Player
     }
 
 
-    void Flipe(Sprite sprite, float x, float y, float angle, int scaleX)
+    void Flipe(Sprite sprite, float x, float y, float angle, int scaleX, int move)
     {
         spriteCurrent.sprite = sprite;
         point.transform.localPosition = new Vector3(x, y, 0f);
         angleAttack = angle;
         weapon.animAttack.transform.rotation = Quaternion.Euler(0, 0, angle);
         weapon.animAttack.transform.localScale = new Vector3(scaleX, 1, 1);
+        anim.enabled = true;
+        anim.SetInteger("Moving", move);
     }
 
 
