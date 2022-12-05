@@ -20,7 +20,8 @@ public class ItemsCheck : MonoBehaviour
     {
         weapon = player.weapon.GetComponent<Weapon>();
         armor = player.armor;
-        weaponPannel.GetComponentInChildren<Text>().text = weapon.name;
+        weaponPannel.transform.GetChild(0).GetComponent<Image>().sprite = weapon.GetComponent<SpriteRenderer>().sprite;
+        weaponPannel.transform.GetChild(0).gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -35,10 +36,10 @@ public class ItemsCheck : MonoBehaviour
 
         }
 
-        if (weapon != null && weapon != player.weapon.GetComponent<Weapon>())
+        if (weapon != player.weapon.GetComponent<Weapon>())
         {
             weapon = player.weapon.GetComponent<Weapon>();
-            weaponPannel.GetComponentInChildren<Text>().text = weapon.name;
+            weaponPannel.transform.GetChild(0).GetComponent<Image>().sprite = player.weapon.GetComponent<SpriteRenderer>().sprite;
         }
     }
 }

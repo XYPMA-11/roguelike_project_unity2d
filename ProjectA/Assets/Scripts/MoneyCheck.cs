@@ -6,12 +6,11 @@ using UnityEngine.UI;
 public class MoneyCheck : MonoBehaviour
 {
     public Player player;
-
-    private Text countMoney;
+    public Text countMoney;
+    public Image coins;
     // Start is called before the first frame update
     void Start()
     {
-        countMoney = gameObject.GetComponent<Text>();
         countMoney.text = player.money.ToString();
     }
 
@@ -19,6 +18,9 @@ public class MoneyCheck : MonoBehaviour
     void Update()
     {
         if (countMoney.text != player.money.ToString())
+        {
+            coins.GetComponent<Animator>().SetTrigger("takesCoins");
             countMoney.text = player.money.ToString();
+        }
     }
 }

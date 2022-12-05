@@ -17,13 +17,7 @@ public class GetDrop : MonoBehaviour
     {
         if (visability.a > 0.5f)
         {
-            var check = Random.Range(0, 2);
-            for (int i = 0; i < check; i++)
-            {
-                Debug.Log(check);
-                Instantiate(drop, vector, Quaternion.identity);
-            }
-
+            Instantiate(drop, vector, Quaternion.identity);
             visability.a = 0.5f;
             gameObject.GetComponent<SpriteRenderer>().color = visability;
         }

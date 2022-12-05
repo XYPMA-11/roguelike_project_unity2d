@@ -89,19 +89,16 @@ public class PlayerController : Player
         if (deltaX < 0)
         {
             Flipe(leftSprite, -0.8f, 0f, 0f, -1, 1);
-
         }
 
         if (deltaY > 0)
         {
             Flipe(upSprite, 0f, 0.8f, 90f, 1, 2);
-
         }
 
         if (deltaY < 0)
         {
             Flipe(downSprite, 0f, -0.8f, 90f, -1, 0);
-
         }
 
         if (deltaX == 0 && deltaY == 0)
