@@ -59,6 +59,8 @@ public class PlayerController : Player
         if (Input.GetKeyDown(KeyCode.E) && gameObject.GetComponent<Collider2D>().IsTouchingLayers(placeLayer))
         {
             Vector3 vec = new Vector3(gameObject.transform.position.x + gameObject.transform.localScale.x, gameObject.transform.position.y, 0);
+            
+            //переместить в start
             var filter = new ContactFilter2D
             {
                 useTriggers = true,
@@ -78,8 +80,8 @@ public class PlayerController : Player
     {
         var deltaX = Input.GetAxis("Horizontal") * speed;
         var deltaY = Input.GetAxis("Vertical") * speed;
-
-        rb.velocity = new Vector2(deltaX, deltaY) * Time.deltaTime;
+        var move = new Vector2(deltaX, deltaY);
+        rb.velocity = Vector2.ClampMagnitude(move, speed) * Time.deltaTime;
 
         if (deltaX > 0)
         {
@@ -113,7 +115,6 @@ public class PlayerController : Player
     void Attacks()
     {
         Debug.Log("ata");
-        //weapon.animAttack.transform.localScale = gameObject.transform.localScale;
         Instantiate(weapon.animAttack, point.transform.position, weapon.animAttack.transform.rotation);
         Collider2D[] hit = Physics2D.OverlapBoxAll(new Vector2(point.transform.position.x, point.transform.position.y), weapon.zoneAttack, angleAttack, enemyLayer);
         if (hit.Length > 0)
@@ -135,7 +136,7 @@ public class PlayerController : Player
         rb.AddForce(Vector2.left * 1f, ForceMode2D.Impulse);
     }
 
-
+    // поворот спрайта, анимации атаки и запуск анимации движения: x, y - координаты персонажа; angle - необходимый уровень поворота; scaleX - направление игрока; move - запуск анимации
     void Flipe(Sprite sprite, float x, float y, float angle, int scaleX, int move)
     {
         spriteCurrent.sprite = sprite;
@@ -147,12 +148,11 @@ public class PlayerController : Player
         anim.SetInteger("Moving", move);
     }
 
-
+    // костыль, переделать на overlap
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Weapon"))
             item = collision.gameObject;
-        
     }
 
     void OnDrawGizmosSelected()
