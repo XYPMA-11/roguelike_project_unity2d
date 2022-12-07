@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class PlayerController : Player
 {
@@ -23,6 +24,13 @@ public class PlayerController : Player
     private Weapon currentWeapon;
     private SpriteRenderer spriteCurrent;
 
+    [HideInInspector]
+    public static bool canDash = false;
+    private bool isDashing = false;
+    private float dashingTime = 0.2f;
+    private float dashingCooldown = 0.5f;
+    private float dashingPower = 20f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,32 +43,57 @@ public class PlayerController : Player
 
     void Update()
     {
+        Debug.Log(canDash);
+        if (isDashing)
+        {
+            return;
+        }
 
         if (Input.GetButtonDown("Fire1"))
         {
             Attacks();
         }
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && canDash)
         {
-            Dash();
+            StartCoroutine(Dash());
         }
 
         if (Input.GetKeyDown(KeyCode.E) && gameObject.GetComponent<Collider2D>().IsTouchingLayers(itemLayer))
         {
             Vector3 vector = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 0);
-            currentWeapon.transform.position = vector;
-            currentWeapon.gameObject.SetActive(true);
-            weapon = item.GetComponent<Weapon>();
-            item.SetActive(false);
-            currentWeapon = weapon;
+            var filter = new ContactFilter2D
+            {
+                useTriggers = true,
+                layerMask = itemLayer,
+                useLayerMask = true
+            };
+            Collider2D[] hit = new Collider2D[1];
+            gameObject.GetComponent<Collider2D>().OverlapCollider(filter, hit);
+
+            if (hit[0].CompareTag("Weapon"))
+            {
+                currentWeapon.transform.position = vector;
+                currentWeapon.gameObject.SetActive(true);
+                weapon = hit[0].GetComponent<Weapon>();
+                hit[0].gameObject.SetActive(false);
+                currentWeapon = weapon;
+            }
+
+            else
+            {
+                //доделать
+                hit[0].gameObject.SetActive(false);
+                hit[0].GetComponent<SpeedBoostsItem>().Use(canDash);
+                canDash = hit[0].GetComponent<SpeedBoostsItem>().Check();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.E) && gameObject.GetComponent<Collider2D>().IsTouchingLayers(placeLayer))
         {
             Vector3 vec = new Vector3(gameObject.transform.position.x + gameObject.transform.localScale.x, gameObject.transform.position.y, 0);
             
-            //переместить в start
+            //переместить в start (или в отдельную функию скорее всего)
             var filter = new ContactFilter2D
             {
                 useTriggers = true,
@@ -78,9 +111,16 @@ public class PlayerController : Player
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (isDashing)
+        {
+            return;
+        }
+
         var deltaX = Input.GetAxis("Horizontal") * speed;
         var deltaY = Input.GetAxis("Vertical") * speed;
         var move = new Vector2(deltaX, deltaY);
+
+ 
         rb.velocity = Vector2.ClampMagnitude(move, speed) * Time.deltaTime;
 
         if (deltaX > 0)
@@ -123,10 +163,16 @@ public class PlayerController : Player
         }
     }
 
-    void Dash()
+    IEnumerator Dash()
     {
-        Vector2 force = new Vector2(transform.localScale.x, 0);
-        rb.velocity += force * 10f;
+        canDash = false;
+        var vectorDash = new Vector2(point.transform.position.x - gameObject.transform.position.x, point.transform.position.y - gameObject.transform.position.y);
+        rb.velocity = vectorDash * dashingPower;
+        isDashing = true;
+        yield return new WaitForSeconds(dashingTime);
+        isDashing = false;
+        yield return new WaitForSeconds(dashingCooldown);
+        canDash = true;
     }
 
     public void TakeDamage()
@@ -149,11 +195,11 @@ public class PlayerController : Player
     }
 
     // костыль, переделать на overlap
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Weapon"))
-            item = collision.gameObject;
-    }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.CompareTag("Weapon"))
+    //        item = collision.gameObject;
+    //}
 
     void OnDrawGizmosSelected()
     {

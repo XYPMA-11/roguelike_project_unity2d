@@ -10,7 +10,7 @@ public class ItemTypes : MonoBehaviour
 
     public Sprite item;
 
-    public virtual void Use()
+    public virtual void Use(bool activate)
     {
 
     }
