@@ -5,14 +5,15 @@ using UnityEngine;
 public class SpeedBoostsItem : ItemTypes
 {
     //додумать
-    public override void Use(bool activate)
+    private GameObject player;
+    public override void Use(GameObject player)
     {
-        activate = true;
-        Debug.Log("yes");
+        player.GetComponent<PlayerController>().canDash = true;
+        this.player = player;
+    }
+    public override void Drop()
+    {
+        player.GetComponent<PlayerController>().canDash = false;
     }
 
-    public bool Check()
-    {
-        return true;
-    }
 }

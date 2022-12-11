@@ -15,11 +15,13 @@ public class ItemsCheck : MonoBehaviour
 
     private Weapon weapon;
     private float armor;
+    private GameObject activeItem;
     // Start is called before the first frame update
     void Start()
     {
         weapon = player.weapon.GetComponent<Weapon>();
         armor = player.armor;
+        activeItem = player.activeItem;
         weaponPannel.transform.GetChild(0).GetComponent<Image>().sprite = weapon.GetComponent<SpriteRenderer>().sprite;
         weaponPannel.transform.GetChild(0).gameObject.SetActive(true);
     }
@@ -40,6 +42,14 @@ public class ItemsCheck : MonoBehaviour
         {
             weapon = player.weapon.GetComponent<Weapon>();
             weaponPannel.transform.GetChild(0).GetComponent<Image>().sprite = player.weapon.GetComponent<SpriteRenderer>().sprite;
+        }
+
+        if (activeItem != player.activeItem)
+        {
+            activeItem = player.activeItem;
+            activePannel.transform.GetChild(0).GetComponent<Image>().sprite = player.activeItem.GetComponent<SpriteRenderer>().sprite;
+            activePannel.transform.GetChild(0).gameObject.SetActive(true);
+
         }
     }
 }

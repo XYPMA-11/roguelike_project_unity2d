@@ -19,13 +19,12 @@ public class PlayerController : Player
     Rigidbody2D rb;
     Animator anim;
 
-    private GameObject item;
     private float angleAttack = 0f;
     private Weapon currentWeapon;
     private SpriteRenderer spriteCurrent;
 
     [HideInInspector]
-    public static bool canDash = false;
+    public bool canDash = false;
     private bool isDashing = false;
     private float dashingTime = 0.2f;
     private float dashingCooldown = 0.5f;
@@ -83,9 +82,23 @@ public class PlayerController : Player
             else
             {
                 //доделать
-                hit[0].gameObject.SetActive(false);
-                hit[0].GetComponent<SpeedBoostsItem>().Use(canDash);
-                canDash = hit[0].GetComponent<SpeedBoostsItem>().Check();
+                if (activeItem == null)
+                {
+                    hit[0].gameObject.SetActive(false);
+                    hit[0].GetComponent<ItemTypes>().Use(gameObject);
+                    activeItem = hit[0].gameObject;
+                }
+                else
+                {
+                    activeItem.transform.position = point.transform.position;
+                    activeItem.GetComponent<ItemTypes>().Drop();
+                    activeItem.gameObject.SetActive(true);
+
+                    hit[0].gameObject.SetActive(false);
+                    hit[0].GetComponent<ItemTypes>().Use(gameObject);
+                    activeItem = hit[0].gameObject;
+
+                }
             }
         }
 

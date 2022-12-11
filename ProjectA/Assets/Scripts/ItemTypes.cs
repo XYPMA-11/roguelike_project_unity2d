@@ -5,12 +5,15 @@ using UnityEngine;
 public class ItemTypes : MonoBehaviour
 {
     public enum ItemType {heal, damage, armor}
-
     public ItemType type;
-
     public Sprite item;
 
-    public virtual void Use(bool activate)
+    public virtual void Use(GameObject player)
+    {
+
+    }
+
+    public virtual void Drop()
     {
 
     }
