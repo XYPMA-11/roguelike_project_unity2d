@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemTypes : MonoBehaviour
 {
-    public enum ItemType {heal, damage, armor}
+    public enum ItemType {active, passive}
     public ItemType type;
     public Sprite item;
 

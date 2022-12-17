@@ -53,9 +53,10 @@ public class PlayerController : Player
             Attacks();
         }
 
-        if (Input.GetButtonDown("Jump") && canDash)
+        if (activeItem != null && Input.GetButtonDown("Jump"))
         {
-            StartCoroutine(Dash());
+            //StartCoroutine(Dash());
+            activeItem.GetComponent<ItemTypes>().Use(gameObject);
         }
 
         if (Input.GetKeyDown(KeyCode.E) && gameObject.GetComponent<Collider2D>().IsTouchingLayers(itemLayer))
@@ -82,23 +83,45 @@ public class PlayerController : Player
             else
             {
                 //доделать
-                if (activeItem == null)
+                if (hit[0].GetComponent<ItemTypes>().type == ItemTypes.ItemType.active)
                 {
-                    hit[0].gameObject.SetActive(false);
-                    hit[0].GetComponent<ItemTypes>().Use(gameObject);
-                    activeItem = hit[0].gameObject;
+                    if (activeItem == null)
+                    {
+                        hit[0].gameObject.SetActive(false);
+                        activeItem = hit[0].gameObject;
+                    }
+                    else
+                    {
+                        activeItem.transform.position = point.transform.position;
+                        activeItem.GetComponent<ItemTypes>().Drop();
+                        activeItem.gameObject.SetActive(true);
+
+                        hit[0].gameObject.SetActive(false);
+                        activeItem = hit[0].gameObject;
+
+                    }
                 }
+
                 else
                 {
-                    activeItem.transform.position = point.transform.position;
-                    activeItem.GetComponent<ItemTypes>().Drop();
-                    activeItem.gameObject.SetActive(true);
+                    if (passiveItem == null)
+                    {
+                        hit[0].gameObject.SetActive(false);
+                        passiveItem = hit[0].gameObject;
+                    }
+                    else
+                    {
+                        passiveItem.transform.position = point.transform.position;
+                        passiveItem.GetComponent<ItemTypes>().Drop();
+                        passiveItem.gameObject.SetActive(true);
 
-                    hit[0].gameObject.SetActive(false);
-                    hit[0].GetComponent<ItemTypes>().Use(gameObject);
-                    activeItem = hit[0].gameObject;
+                        hit[0].gameObject.SetActive(false);
+                        passiveItem = hit[0].gameObject;
 
+                    }
                 }
+
+
             }
         }
 
@@ -174,6 +197,12 @@ public class PlayerController : Player
         {
             hit[0].GetComponent<Enemy>().TakeDamage(weapon.damage);
         }
+    }
+
+    public void ActivateDash()
+    {
+        if (canDash)
+        StartCoroutine(Dash());
     }
 
     IEnumerator Dash()

@@ -8,6 +8,8 @@ public class Potion : ItemTypes
 
     public override void Use(GameObject player)
     {
-        player.GetComponent<Player>().hp += heal;
+        var p = player.GetComponent<Player>();
+        p.hp = p.hp + heal > p.maxhp ? p.maxhp : p.hp + heal;
+        Destroy(gameObject);
     }
 }

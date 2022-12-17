@@ -8,12 +8,16 @@ public class SpeedBoostsItem : ItemTypes
     private GameObject player;
     public override void Use(GameObject player)
     {
-        player.GetComponent<PlayerController>().canDash = true;
+        if (this.player == null)
+            player.GetComponent<PlayerController>().canDash = true;
         this.player = player;
+        player.GetComponent<PlayerController>().ActivateDash();
     }
     public override void Drop()
     {
-        player.GetComponent<PlayerController>().canDash = false;
+        if (player != null)
+            player.GetComponent<PlayerController>().canDash = false;
+        player = null;
     }
 
 }

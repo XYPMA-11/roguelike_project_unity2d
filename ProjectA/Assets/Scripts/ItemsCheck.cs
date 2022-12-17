@@ -16,12 +16,14 @@ public class ItemsCheck : MonoBehaviour
     private Weapon weapon;
     private float armor;
     private GameObject activeItem;
+    private GameObject passiveItem;
     // Start is called before the first frame update
     void Start()
     {
         weapon = player.weapon.GetComponent<Weapon>();
         armor = player.armor;
         activeItem = player.activeItem;
+        passiveItem = player.passiveItem;
         weaponPannel.transform.GetChild(0).GetComponent<Image>().sprite = weapon.GetComponent<SpriteRenderer>().sprite;
         weaponPannel.transform.GetChild(0).gameObject.SetActive(true);
     }
@@ -34,8 +36,6 @@ public class ItemsCheck : MonoBehaviour
             armor = player.armor;
             armorPannel.transform.GetChild(0).GetComponent<Image>().sprite = player.GetComponent<PlayerController>().currentArmor.item;
             armorPannel.transform.GetChild(0).gameObject.SetActive(true);
-
-
         }
 
         if (weapon != player.weapon.GetComponent<Weapon>())
@@ -49,7 +49,23 @@ public class ItemsCheck : MonoBehaviour
             activeItem = player.activeItem;
             activePannel.transform.GetChild(0).GetComponent<Image>().sprite = player.activeItem.GetComponent<SpriteRenderer>().sprite;
             activePannel.transform.GetChild(0).gameObject.SetActive(true);
+        }
 
+        if (activeItem == null && activePannel.transform.GetChild(0).gameObject.activeInHierarchy)
+        {
+            activePannel.transform.GetChild(0).gameObject.SetActive(false);
+        }
+
+        if (passiveItem != player.passiveItem)
+        {
+            passiveItem = player.passiveItem;
+            passivePannel.transform.GetChild(0).GetComponent<Image>().sprite = player.passiveItem.GetComponent<SpriteRenderer>().sprite;
+            passivePannel.transform.GetChild(0).gameObject.SetActive(true);
+        }
+
+        if (passiveItem == null && passivePannel.transform.GetChild(0).gameObject.activeInHierarchy)
+        {
+            passivePannel.transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 }
