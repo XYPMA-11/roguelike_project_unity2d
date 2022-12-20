@@ -5,21 +5,69 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638014993303886437
-    m_Hash: 2597298123
+      ticks: 638071157802039049
+    m_Hash: 2560367005
   m_LockFileStatus:
     m_FilePath: C:/Users/User/Desktop/ProjectA/roguelike_project_unity2d/ProjectA/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638014993617281713
-    m_Hash: 2099878622
+      ticks: 638071157802098891
+    m_Hash: 1457818251
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_PackageAssets:
   m_Packages:
     m_ResolvedPackages:
+    - packageId: com.h8man.2d.navmeshplus@file:C:\Users\User\Desktop\NavMesh
+      testable: 0
+      isDirectDependency: 1
+      version: 0.2.12
+      source: 4
+      resolvedPath: C:\Users\User\Desktop\NavMesh
+      assetPath: Packages/com.h8man.2d.navmeshplus
+      name: com.h8man.2d.navmeshplus
+      displayName: NavMeshPlus
+      author:
+        name: 
+        email: 
+        url: 
+      category: 2D
+      type: 
+      description: NavMesh building components provide you with ability to create
+        navigation meshes that are generated automatically from your Scene geometry,
+        which allows characters to move intelligently around the game world.
+      status: 4
+      errors: []
+      versions:
+        all: []
+        compatible: []
+        verified: 
+      dependencies: []
+      resolvedDependencies: []
+      keywords:
+      - 2d
+      registry:
+        id: main
+        name: 
+        url: https://packages.unity.com
+        scopes: []
+        isDefault: 1
+        capabilities: 7
+      hasRegistry: 1
+      hideInEditor: 1
+      entitlements:
+        isAllowed: 1
+      isAssetStorePackage: 0
+      datePublishedTicks: 0
+      documentationUrl: 
+      hasRepository: 0
+      repository:
+        type: 
+        url: 
+        revision: 
+        path: 
     - packageId: com.unity.2d.animation@5.2.3
       testable: 0
       isDirectDependency: 1
@@ -34,7 +82,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 2D
-      type: 
+      type: asset
       description: 2D Animation provides all the necessary tooling and runtime components
         for skeletal animation using Sprites.
       status: 4
@@ -113,6 +161,7 @@ m_PackageAssets:
         - 5.2.1
         - 5.2.3
         - 5.2.4
+        - 5.2.6
         - 6.0.0-pre.1
         - 6.0.0-pre.2
         - 6.0.1
@@ -131,6 +180,7 @@ m_PackageAssets:
         - 7.0.6
         - 7.0.7
         - 7.0.8
+        - 7.0.9
         - 8.0.0-pre.3
         - 8.0.0-pre.4
         - 8.0.0
@@ -138,15 +188,20 @@ m_PackageAssets:
         - 8.0.2
         - 8.0.3
         - 8.0.4
+        - 8.0.5
         - 9.0.0-pre.1
         - 9.0.0-pre.3
         - 9.0.0
+        - 9.0.1
+        - 10.0.0-pre.1
+        - 10.0.0-pre.2
         compatible:
         - 5.2.0
         - 5.2.1
         - 5.2.3
         - 5.2.4
-        verified: 5.2.4
+        - 5.2.6
+        verified: 5.2.6
       dependencies:
       - name: com.unity.2d.common
         version: 4.2.0
@@ -188,7 +243,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -246,6 +301,7 @@ m_PackageAssets:
         - 5.0.0
         - 5.0.1
         - 5.0.2
+        - 5.0.3
         compatible:
         - 4.0.1
         verified: 4.0.1
@@ -290,7 +346,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 2D
-      type: 
+      type: asset
       description: A ScriptedImporter for importing Adobe Photoshop PSB (Photoshop
         Big) file format. The ScriptedImporter is currently targeted for users who
         wants to create multi Sprite character animation using Unity 2D Animation
@@ -355,6 +411,7 @@ m_PackageAssets:
         - 6.0.4
         - 6.0.5
         - 6.0.6
+        - 6.0.7
         - 7.0.0-pre.3
         - 7.0.0-pre.4
         - 7.0.0
@@ -364,6 +421,10 @@ m_PackageAssets:
         - 8.0.0-pre.1
         - 8.0.0-pre.3
         - 8.0.0
+        - 8.0.1
+        - 8.0.2
+        - 9.0.0-pre.1
+        - 9.0.0-pre.2
         compatible:
         - 4.3.0
         - 4.3.1
@@ -408,7 +469,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -485,7 +546,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 2D
-      type: 
+      type: asset
       description: SpriteShape Runtime & Editor Package contains the tooling and
         the runtime component that allows you to create very organic looking spline
         based 2D worlds. It comes with intuitive configurator and a highly performant
@@ -568,6 +629,9 @@ m_PackageAssets:
         - 8.0.1
         - 9.0.0-pre.1
         - 9.0.0
+        - 9.0.1
+        - 10.0.0-pre.1
+        - 10.0.0-pre.2
         compatible:
         - 5.3.0
         verified: 5.3.0
@@ -616,7 +680,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -692,7 +756,7 @@ m_PackageAssets:
         email: 
         url: 
       category: Editor
-      type: 
+      type: asset
       description: The Version Control package gives you the ability to use either
         Collaborate or Plastic SCM for Unity (beta) in the Unity editor. To use Plastic
         SCM for Unity (beta), a Plastic SCM subscription is required. Learn more
@@ -752,6 +816,7 @@ m_PackageAssets:
         - 1.17.1
         - 1.17.2
         - 1.17.6
+        - 1.17.7
         - 2.0.0-preview.6
         - 2.0.0-preview.8
         - 2.0.0-preview.15
@@ -765,6 +830,7 @@ m_PackageAssets:
         compatible:
         - 1.17.2
         - 1.17.6
+        - 1.17.7
         - 2.0.0-preview.6
         - 2.0.0-preview.8
         - 2.0.0-preview.15
@@ -775,7 +841,7 @@ m_PackageAssets:
         - 2.1.0-preview.3
         - 2.1.0-preview.5
         - 2.1.0-preview.6
-        verified: 1.17.6
+        verified: 1.17.7
       dependencies:
       - name: com.unity.services.core
         version: 1.0.1
@@ -806,7 +872,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -832,7 +898,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 
-      type: 
+      type: asset
       description: The JetBrains Rider Editor package provides an integration for
         using the JetBrains Rider IDE as a code editor for Unity. It adds support
         for generating .csproj files for code completion and auto-discovery of installations.
@@ -872,6 +938,7 @@ m_PackageAssets:
         - 3.0.14
         - 3.0.15
         - 3.0.16
+        - 3.0.17
         compatible:
         - 1.0.2
         - 1.0.6
@@ -905,6 +972,7 @@ m_PackageAssets:
         - 3.0.14
         - 3.0.15
         - 3.0.16
+        - 3.0.17
         verified: 2.0.7
       dependencies:
       - name: com.unity.test-framework
@@ -927,7 +995,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -953,7 +1021,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 
-      type: 
+      type: asset
       description: Code editor integration for supporting Visual Studio as code editor
         for unity. Adds support for generating csproj files for intellisense purposes,
         auto discovery of installations, etc.
@@ -980,6 +1048,7 @@ m_PackageAssets:
         - 2.0.14
         - 2.0.15
         - 2.0.16
+        - 2.0.17
         compatible:
         - 1.0.2
         - 1.0.3
@@ -1000,7 +1069,8 @@ m_PackageAssets:
         - 2.0.14
         - 2.0.15
         - 2.0.16
-        verified: 2.0.16
+        - 2.0.17
+        verified: 2.0.17
       dependencies:
       - name: com.unity.test-framework
         version: 1.1.9
@@ -1022,7 +1092,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -1121,7 +1191,7 @@ m_PackageAssets:
         email: 
         url: 
       category: Unity Test Framework
-      type: 
+      type: asset
       description: Test framework for running Edit mode and Play mode tests in Unity.
       status: 4
       errors: []
@@ -1162,14 +1232,20 @@ m_PackageAssets:
         - 1.1.31
         - 1.1.33
         - 1.3.0
+        - 1.3.1
+        - 1.3.2
         - 2.0.1-exp.1
+        - 2.0.1-exp.2
         - 2.0.1-pre.12
         - 2.0.1-pre.18
         compatible:
         - 1.1.31
         - 1.1.33
         - 1.3.0
+        - 1.3.1
+        - 1.3.2
         - 2.0.1-exp.1
+        - 2.0.1-exp.2
         - 2.0.1-pre.12
         - 2.0.1-pre.18
         verified: 1.1.33
@@ -1198,7 +1274,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -1224,7 +1300,7 @@ m_PackageAssets:
         email: 
         url: 
       category: Text Rendering
-      type: 
+      type: asset
       description: 'TextMeshPro is the ultimate text solution for Unity. It''s the
         perfect replacement for Unity''s UI Text and the legacy Text Mesh.
 
@@ -1333,12 +1409,14 @@ m_PackageAssets:
         - 3.2.0-pre.1
         - 3.2.0-pre.2
         - 3.2.0-pre.3
+        - 3.2.0-pre.4
         - 4.0.0-pre.1
         compatible:
         - 3.0.6
         - 3.2.0-pre.1
         - 3.2.0-pre.2
         - 3.2.0-pre.3
+        - 3.2.0-pre.4
         verified: 3.0.6
       dependencies:
       - name: com.unity.ugui
@@ -1364,7 +1442,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -1390,7 +1468,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 
-      type: 
+      type: asset
       description: Use Unity Timeline to create cinematic content, game-play sequences,
         audio sequences, and complex particle effects.
       status: 4
@@ -1470,6 +1548,7 @@ m_PackageAssets:
         - 1.7.0
         - 1.7.1
         - 1.7.2
+        - 1.8.0
         compatible:
         - 1.4.8
         - 1.5.0-pre.2
@@ -1499,6 +1578,7 @@ m_PackageAssets:
         - 1.7.0
         - 1.7.1
         - 1.7.2
+        - 1.8.0
         verified: 1.4.8
       dependencies:
       - name: com.unity.modules.director
@@ -1532,7 +1612,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -3428,7 +3508,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 
-      type: 
+      type: asset
       description: 'This package defines common components used by multiple Game
         Service packages.
 
@@ -3454,6 +3534,8 @@ m_PackageAssets:
         - 1.4.2
         - 1.4.3
         - 1.5.2
+        - 1.6.0
+        - 1.7.0
         compatible:
         - 1.0.1
         - 1.1.0-pre.7
@@ -3471,6 +3553,8 @@ m_PackageAssets:
         - 1.4.2
         - 1.4.3
         - 1.5.2
+        - 1.6.0
+        - 1.7.0
         verified: 1.4.3
       dependencies:
       - name: com.unity.modules.unitywebrequest
@@ -3487,7 +3571,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -3594,7 +3678,7 @@ m_PackageAssets:
         email: 
         url: 
       category: 2D
-      type: 
+      type: asset
       description: 2D Common is a package that contains shared functionalities that
         are used by most of the other 2D packages.
       status: 4
@@ -3635,14 +3719,19 @@ m_PackageAssets:
         - 6.0.3
         - 6.0.4
         - 6.0.5
+        - 6.0.6
         - 7.0.0-pre.3
         - 7.0.0-pre.4
         - 7.0.0
         - 7.0.1
         - 7.0.2
+        - 7.0.3
         - 8.0.0-pre.1
         - 8.0.0-pre.2
         - 8.0.0
+        - 8.0.1
+        - 9.0.0-pre.1
+        - 9.0.0-pre.2
         compatible:
         - 4.2.0
         - 4.2.1
@@ -3675,7 +3764,7 @@ m_PackageAssets:
         isDefault: 1
         capabilities: 7
       hasRegistry: 1
-      hideInEditor: 1
+      hideInEditor: 0
       entitlements:
         isAllowed: 1
       isAssetStorePackage: 0
@@ -3758,6 +3847,20 @@ m_PackageAssets:
         revision: 6f9c488e4d487ead34ee4d516f0a2f4a911a8b25
         path: 
   m_LocalPackages:
-    m_LocalFileStatus: []
+    m_LocalFileStatus:
+    - m_FilePath: C:\Users\User\Desktop\NavMesh/package.json
+      m_PathExists: 1
+      m_ContentTrackingEnabled: 1
+      m_ModificationDate:
+        serializedVersion: 2
+        ticks: 638032343260000000
+      m_Hash: 435457101
+    - m_FilePath: C:\Users\User\Desktop\NavMesh
+      m_PathExists: 1
+      m_ContentTrackingEnabled: 1
+      m_ModificationDate:
+        serializedVersion: 2
+        ticks: 0
+      m_Hash: 0
 m_ProjectPath: C:/Users/User/Desktop/ProjectA/roguelike_project_unity2d/ProjectA/Packages
 m_EditorVersion: 2020.3.38f1 (8f5fde82e2dc)
