@@ -121,7 +121,6 @@ public class PlayerController : Player
                     }
                 }
 
-
             }
         }
 
@@ -181,7 +180,7 @@ public class PlayerController : Player
 
         if (deltaX == 0 && deltaY == 0)
         {
-            anim.enabled = false;
+            Flipe(upSprite, 0f, -0.8f, 90f, -1, 4);
         }
 
 

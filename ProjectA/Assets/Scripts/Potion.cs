@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Potion : ItemTypes
 {
-    public float heal = 3f;
+    public float heal;
 
     public override void Use(GameObject player)
     {

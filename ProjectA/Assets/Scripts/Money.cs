@@ -10,7 +10,7 @@ public class Money : MonoBehaviour
 
     private int count;
 
-    private void Start()
+    void Start()
     {
         var i = Random.Range(0, 15);
 

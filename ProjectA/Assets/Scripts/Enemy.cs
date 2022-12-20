@@ -15,11 +15,14 @@ public class Enemy : MonoBehaviour
 
     private bool faceRight = true;
 
+
     Rigidbody2D rb;
+    Animator anim;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -53,9 +56,15 @@ public class Enemy : MonoBehaviour
             Flip();
         }
 
+        if (rb.velocity == Vector2.zero)
+        {
+            anim.SetInteger("Moving", 0);
+        }
+        
         if (!getDamage && distanceAttack < vectorVelocity.magnitude)
         {
             rb.velocity = new Vector2(deltaX, deltaY).normalized * speed;
+            anim.SetInteger("Moving", 1);
             delayAttack = 2.5f;
         }
             
@@ -63,6 +72,8 @@ public class Enemy : MonoBehaviour
         {
             delayAttack -= Time.deltaTime;
             rb.velocity = Vector2.zero;
+            Debug.Log(rb.velocity);
+
             if (delayAttack <= 0)
             {
                 Debug.Log("attack");
@@ -71,6 +82,8 @@ public class Enemy : MonoBehaviour
             }
 
         }
+
+
         if (getDamage)
         {
             gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
@@ -84,7 +97,7 @@ public class Enemy : MonoBehaviour
         Vector3 currentScale = gameObject.transform.localScale;
         currentScale.x *= -1;
         gameObject.transform.localScale = currentScale;
-
+        anim.SetInteger("Moving", 0);
         faceRight = !faceRight;
 
     }
@@ -103,6 +116,4 @@ public class Enemy : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().color = Color.grey;
 
     }
-
-
 }
