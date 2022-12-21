@@ -10,6 +10,7 @@ public class PlayerController : Player
     public LayerMask placeLayer;
     public GameObject checkItem;
     public ArmorItem currentArmor;
+    public GameObject button;
 
     public Sprite upSprite;
     public Sprite downSprite;
@@ -42,7 +43,6 @@ public class PlayerController : Player
 
     void Update()
     {
-        Debug.Log(canDash);
         if (isDashing)
         {
             return;
@@ -55,9 +55,13 @@ public class PlayerController : Player
 
         if (activeItem != null && Input.GetButtonDown("Jump"))
         {
-            //StartCoroutine(Dash());
             activeItem.GetComponent<ItemTypes>().Use(gameObject);
         }
+
+        //if (gameObject.GetComponent<Collider2D>().IsTouchingLayers(itemLayer))
+        //{
+        //    Instantiate(button, point.transform.position, Quaternion.identity);
+        //}
 
         if (Input.GetKeyDown(KeyCode.E) && gameObject.GetComponent<Collider2D>().IsTouchingLayers(itemLayer))
         {
@@ -189,7 +193,6 @@ public class PlayerController : Player
 
     void Attacks()
     {
-        Debug.Log("ata");
         Instantiate(weapon.animAttack, point.transform.position, weapon.animAttack.transform.rotation);
         Collider2D[] hit = Physics2D.OverlapBoxAll(new Vector2(point.transform.position.x, point.transform.position.y), weapon.zoneAttack, angleAttack, enemyLayer);
         if (hit.Length > 0)

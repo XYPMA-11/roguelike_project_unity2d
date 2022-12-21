@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour
     public GameObject target;
 
     [HideInInspector]
+    public bool activate = false;
+    [HideInInspector]
     public bool getDamage = false;
     private float delayAttack = 2.5f;
     private float distanceAttack = 1.5f;
@@ -17,20 +19,19 @@ public class Enemy : MonoBehaviour
     private bool faceRight = true;
 
 
-    Rigidbody2D rb;
+    //Rigidbody2D rb;
     Animator anim;
     NavMeshAgent agent;
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        //rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -40,11 +41,13 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!activate)
+            return;
+
         if (hp <= 0)
         {
             Destroy(gameObject);
         }
-
 
         var deltaX = target.transform.position.x - gameObject.transform.position.x;
         var deltaY = target.transform.position.y - gameObject.transform.position.y;
@@ -61,18 +64,15 @@ public class Enemy : MonoBehaviour
             Flip();
         }
 
-        //теперь не работает
         if (agent.velocity == Vector3.zero)
         {
             anim.SetInteger("Moving", 0);
         }
-        Debug.Log(agent.velocity);
+        //Debug.Log(agent.remainingDistance);
 
         if (!getDamage && distanceAttack < vectorVelocity.magnitude)
         {
-            //rb.velocity = new Vector2(deltaX, deltaY).normalized * speed;
             agent.SetDestination(target.transform.position);
-            //agent.velocity = new Vector3(deltaX, deltaY, 0).normalized * speed;
             anim.SetInteger("Moving", 1);
             delayAttack = 2.5f;
         }
@@ -81,6 +81,7 @@ public class Enemy : MonoBehaviour
         {
             delayAttack -= Time.deltaTime;
             agent.velocity = Vector2.zero;
+            
 
             if (delayAttack <= 0)
             {
@@ -91,11 +92,11 @@ public class Enemy : MonoBehaviour
 
         }
 
-
+        //переделать 
         if (getDamage)
         {
-            gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
-            agent.velocity = new Vector2(gameObject.transform.localScale.x, 0f) * -4f;
+            Vector2 vec = new Vector2(deltaX, deltaY).normalized;
+            agent.velocity = vec * -4f;
             StartCoroutine(ResetDamage());
         }
     }
@@ -121,7 +122,5 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         getDamage = false;
-        gameObject.GetComponent<SpriteRenderer>().color = Color.grey;
-
     }
 }
