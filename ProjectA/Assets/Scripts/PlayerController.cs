@@ -8,6 +8,7 @@ public class PlayerController : Player
     public LayerMask enemyLayer;
     public LayerMask itemLayer;
     public LayerMask placeLayer;
+    public LayerMask shopLayer;
     public GameObject checkItem;
     public ArmorItem currentArmor;
     public GameObject button;
@@ -19,6 +20,7 @@ public class PlayerController : Player
 
     Rigidbody2D rb;
     Animator anim;
+    Collider2D col;
 
     private float angleAttack = 0f;
     private Weapon currentWeapon;
@@ -36,6 +38,7 @@ public class PlayerController : Player
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        col = GetComponent<Collider2D>();
         currentWeapon = Instantiate(weapon);
         currentWeapon.gameObject.SetActive(false);
         spriteCurrent = gameObject.GetComponent<SpriteRenderer>();
@@ -58,12 +61,28 @@ public class PlayerController : Player
             activeItem.GetComponent<ItemTypes>().Use(gameObject);
         }
 
-        //if (gameObject.GetComponent<Collider2D>().IsTouchingLayers(itemLayer))
-        //{
-        //    Instantiate(button, point.transform.position, Quaternion.identity);
-        //}
+        //покупка в магазине
+        if (Input.GetKeyDown(KeyCode.E) && col.IsTouchingLayers(shopLayer))
+        {
+            Vector3 vector = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 0);
+            var filter = new ContactFilter2D
+            {
+                useTriggers = true,
+                layerMask = shopLayer,
+                useLayerMask = true
+            };
+            Collider2D[] hit = new Collider2D[1];
+            col.OverlapCollider(filter, hit);
+            var item = hit[0].GetComponent<Shop>();
+            if (item.price < money)
+            {
+                item.Buy();
+                money -= item.price;
+            }
+        }
 
-        if (Input.GetKeyDown(KeyCode.E) && gameObject.GetComponent<Collider2D>().IsTouchingLayers(itemLayer))
+        //подбор предметов (переписать)
+        if (Input.GetKeyDown(KeyCode.E) && col.IsTouchingLayers(itemLayer))
         {
             Vector3 vector = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 0);
             var filter = new ContactFilter2D
@@ -73,7 +92,7 @@ public class PlayerController : Player
                 useLayerMask = true
             };
             Collider2D[] hit = new Collider2D[1];
-            gameObject.GetComponent<Collider2D>().OverlapCollider(filter, hit);
+            col.OverlapCollider(filter, hit);
 
             if (hit[0].CompareTag("Weapon"))
             {
@@ -128,7 +147,8 @@ public class PlayerController : Player
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.E) && gameObject.GetComponent<Collider2D>().IsTouchingLayers(placeLayer))
+        //взаимодействие с особыми местами
+        if (Input.GetKeyDown(KeyCode.E) && col.IsTouchingLayers(placeLayer))
         {
             Vector3 vec = new Vector3(gameObject.transform.position.x + gameObject.transform.localScale.x, gameObject.transform.position.y, 0);
             
@@ -140,7 +160,7 @@ public class PlayerController : Player
                 useLayerMask = true
             };
             Collider2D[] hit = new Collider2D[1];
-            gameObject.GetComponent<Collider2D>().OverlapCollider(filter, hit);
+            col.OverlapCollider(filter, hit);
             hit[0].GetComponent<GetDrop>().TakeDrop(vec);
         }
 

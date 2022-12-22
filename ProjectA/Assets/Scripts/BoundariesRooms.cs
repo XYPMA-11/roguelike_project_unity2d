@@ -9,6 +9,9 @@ public class BoundariesRooms : MonoBehaviour
     private Collider2D[] borders;
     private Collider2D col;
     private ContactFilter2D filter;
+    private Vector3 position;
+    private List<Collider2D> result = new List<Collider2D>();
+
     void Start()
     {
         borders = GetComponentsInChildren<Collider2D>();
@@ -21,15 +24,17 @@ public class BoundariesRooms : MonoBehaviour
         };
     }
 
-    //додумать
     void Update()
     {
-        var result = new List<Collider2D>();
-        col.OverlapCollider(filter, result);
-        Debug.Log(result.Count);
-        countEnemy = result.Count;
-        foreach (var enemy in result)
-            enemy.GetComponent<Enemy>().activate = true;
+        if (position != transform.position)
+        {
+            col.OverlapCollider(filter, result);
+            Debug.Log(result.Count);
+            countEnemy = result.Count;
+            foreach (var enemy in result)
+                enemy.GetComponent<Enemy>().activate = true;
+        }
+
         if (countEnemy == 0)
         {
             foreach (var b in borders)

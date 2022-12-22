@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6383597143129109265}
   - component: {fileID: 5403770292279062979}
   - component: {fileID: 7193732804235736784}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Spear
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3172285232296598005}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.1054413, y: 0.12675188, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
