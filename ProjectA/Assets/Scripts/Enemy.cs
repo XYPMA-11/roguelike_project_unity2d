@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     public bool activate = false;
     [HideInInspector]
     public bool getDamage = false;
-    private float delayAttack = 2.5f;
+    private float delayAttack = 1.5f;
     private float distanceAttack = 1.5f;
 
     private bool faceRight = true;
@@ -64,30 +64,29 @@ public class Enemy : MonoBehaviour
             Flip();
         }
 
-        if (agent.velocity == Vector3.zero)
+        //agent.remainingDistance можно использовать вместо вектора, но он крашит, так как находится в fixed
+        if (vectorVelocity.magnitude < 1.5f && anim.GetInteger("Moving") != 2)
         {
-            anim.SetInteger("Moving", 0);
+            anim.SetInteger("Moving", 0); 
         }
-        //Debug.Log(agent.remainingDistance);
 
         if (!getDamage && distanceAttack < vectorVelocity.magnitude)
         {
             agent.SetDestination(target.transform.position);
             anim.SetInteger("Moving", 1);
-            delayAttack = 2.5f;
+            delayAttack = 1.5f;
         }
             
         else if (distanceAttack > vectorVelocity.magnitude)
         {
             delayAttack -= Time.deltaTime;
-            agent.velocity = Vector2.zero;
-            
-
+           
             if (delayAttack <= 0)
             {
                 Debug.Log("attack");
-                target.GetComponent<PlayerController>().TakeDamage();
-                delayAttack = 2.5f;
+                anim.SetInteger("Moving", 2);
+                delayAttack = 1.5f;
+
             }
 
         }
@@ -99,6 +98,12 @@ public class Enemy : MonoBehaviour
             agent.velocity = vec * -4f;
             StartCoroutine(ResetDamage());
         }
+    }
+
+    void Attack()
+    {
+        if (distanceAttack > agent.remainingDistance)
+            target.GetComponent<PlayerController>().TakeDamage();
     }
 
     void Flip()
