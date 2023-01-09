@@ -4,14 +4,9 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public float delayAttack;
+    public float cooldown;
     public Vector2 zoneAttack;
     public int damage;
     public GameObject animAttack;
-
-    public void Use()
-    {
-        Destroy(gameObject);
-    }
 
 }

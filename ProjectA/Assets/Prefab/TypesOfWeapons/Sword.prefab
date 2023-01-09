@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be6fb9ab9a3de14a913fb8fc83362ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayAttack: 0
+  cooldown: 0.5
   zoneAttack: {x: 1, y: 2}
   damage: 1
   animAttack: {fileID: 3967495446780297281, guid: 10dc7f83e9974e24b9b14da39652caf2, type: 3}

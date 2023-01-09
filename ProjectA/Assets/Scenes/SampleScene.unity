@@ -15716,7 +15716,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 340320722}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06486a7c67de1294eab1ada77b999595, type: 3}
   m_Name: 
@@ -20322,10 +20322,6 @@ MonoBehaviour:
   checkItem: {fileID: 3059647120780526834, guid: 459a010f6b364194b8fd69b630fb2022, type: 3}
   currentArmor: {fileID: 0}
   button: {fileID: 1102580495}
-  upSprite: {fileID: 21300000, guid: 2621d3e7ff61a0745ba741dd102d5f44, type: 3}
-  downSprite: {fileID: 21300000, guid: 294c9a65c38265a4cbede7c36783aa83, type: 3}
-  leftSprite: {fileID: 21300000, guid: 870f427945c2ffc4ba71beeda005c704, type: 3}
-  rightSprite: {fileID: 21300000, guid: 91d503387bd24194abc5c1bdf03019be, type: 3}
   canDash: 0
 --- !u!95 &1535891628
 Animator:
@@ -21493,7 +21489,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2bf21db7f15cf674eb0d1b70ce8244e4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

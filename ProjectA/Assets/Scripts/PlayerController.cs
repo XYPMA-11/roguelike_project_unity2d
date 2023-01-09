@@ -13,18 +13,13 @@ public class PlayerController : Player
     public ArmorItem currentArmor;
     public GameObject button;
 
-    public Sprite upSprite;
-    public Sprite downSprite;
-    public Sprite leftSprite;
-    public Sprite rightSprite;
-
     Rigidbody2D rb;
     Animator anim;
     Collider2D col;
 
     private float angleAttack = 0f;
     private Weapon currentWeapon;
-    private SpriteRenderer spriteCurrent;
+    private float cooldownWeapon = 0f;
 
     [HideInInspector]
     public bool canDash = false;
@@ -41,7 +36,6 @@ public class PlayerController : Player
         col = GetComponent<Collider2D>();
         currentWeapon = Instantiate(weapon);
         currentWeapon.gameObject.SetActive(false);
-        spriteCurrent = gameObject.GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -51,9 +45,15 @@ public class PlayerController : Player
             return;
         }
 
-        if (Input.GetButtonDown("Fire1"))
+        
+        if (Input.GetButtonDown("Fire1") && cooldownWeapon <= 0)
         {
-            Attacks();
+            Attack();
+        }
+
+        if (cooldownWeapon > 0)
+        {
+            cooldownWeapon -= Time.deltaTime;
         }
 
         if (activeItem != null && Input.GetButtonDown("Jump"))
@@ -184,41 +184,45 @@ public class PlayerController : Player
 
         if (deltaX > 0)
         {
-            Flipe(rightSprite, 0.8f, 0f, 0f, 1, 3);
+            Flipe(0.8f, 0f, 0f, 1, 3);
         }
 
         if (deltaX < 0)
         {
-            Flipe(leftSprite, -0.8f, 0f, 0f, -1, 1);
+            Flipe(-0.8f, 0f, 0f, -1, 1);
         }
 
         if (deltaY > 0)
         {
-            Flipe(upSprite, 0f, 0.8f, 90f, 1, 2);
+            Flipe( 0f, 0.8f, 90f, 1, 2);
         }
 
         if (deltaY < 0)
         {
-            Flipe(downSprite, 0f, -0.8f, 90f, -1, 0);
+            Flipe(0f, -0.8f, 90f, -1, 0);
         }
 
         if (deltaX == 0 && deltaY == 0)
         {
-            Flipe(upSprite, 0f, -0.8f, 90f, -1, 4);
+            anim.SetInteger("Moving", 4);
         }
 
 
 
     }
 
-    void Attacks()
+    void Attack()
     {
         Instantiate(weapon.animAttack, point.transform.position, weapon.animAttack.transform.rotation);
         Collider2D[] hit = Physics2D.OverlapBoxAll(new Vector2(point.transform.position.x, point.transform.position.y), weapon.zoneAttack, angleAttack, enemyLayer);
         if (hit.Length > 0)
         {
-            hit[0].GetComponent<Enemy>().TakeDamage(weapon.damage);
+            foreach (var h in hit)
+            {
+                h.GetComponent<Enemy>().TakeDamage(weapon.damage);
+            }
         }
+        cooldownWeapon = weapon.cooldown;
     }
 
     public void ActivateDash()
@@ -246,10 +250,9 @@ public class PlayerController : Player
         rb.AddForce(Vector2.left * 1f, ForceMode2D.Impulse);
     }
 
-    // поворот спрайта, анимации атаки и запуск анимации движения: x, y - координаты персонажа; angle - необходимый уровень поворота; scaleX - направление игрока; move - запуск анимации
-    void Flipe(Sprite sprite, float x, float y, float angle, int scaleX, int move)
+    // поворот, анимации атаки и запуск анимации движения: x, y - коориданты point; angle - необходимый уровень поворота; scaleX - направление игрока; move - анимации движения
+    void Flipe(float x, float y, float angle, int scaleX, int move)
     {
-        spriteCurrent.sprite = sprite;
         point.transform.localPosition = new Vector3(x, y, 0f);
         angleAttack = angle;
         weapon.animAttack.transform.rotation = Quaternion.Euler(0, 0, angle);
@@ -257,13 +260,6 @@ public class PlayerController : Player
         anim.enabled = true;
         anim.SetInteger("Moving", move);
     }
-
-    // костыль, переделать на overlap
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if (collision.CompareTag("Weapon"))
-    //        item = collision.gameObject;
-    //}
 
     void OnDrawGizmosSelected()
     {
