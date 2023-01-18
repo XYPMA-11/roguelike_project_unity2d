@@ -29,7 +29,6 @@ public class BoundariesRooms : MonoBehaviour
         if (position != transform.position)
         {
             col.OverlapCollider(filter, result);
-            Debug.Log(result.Count);
             countEnemy = result.Count;
             foreach (var enemy in result)
                 enemy.GetComponent<Enemy>().activate = true;

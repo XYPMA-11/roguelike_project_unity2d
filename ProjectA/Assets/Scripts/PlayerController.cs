@@ -19,7 +19,8 @@ public class PlayerController : Player
 
     private float angleAttack = 0f;
     private Weapon currentWeapon;
-    private float cooldownWeapon = 0f;
+    public float cooldownWeapon = 0f;
+    public bool isAttacking = false;
 
     [HideInInspector]
     public bool canDash = false;
@@ -48,6 +49,7 @@ public class PlayerController : Player
         
         if (Input.GetButtonDown("Fire1") && cooldownWeapon <= 0)
         {
+            isAttacking = true;
             Attack();
         }
 
@@ -223,6 +225,7 @@ public class PlayerController : Player
             }
         }
         cooldownWeapon = weapon.cooldown;
+        isAttacking = false;
     }
 
     public void ActivateDash()
