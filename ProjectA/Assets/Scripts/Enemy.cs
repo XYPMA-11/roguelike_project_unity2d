@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     public bool activate = false;
     [HideInInspector]
     public bool getDamage = false;
-    private float delayAttack = 1.5f;
+    private float delayAttack = 0.1f;
     private float distanceAttack = 1.5f;
 
     private bool faceRight = true;
@@ -22,12 +22,14 @@ public class Enemy : MonoBehaviour
     //Rigidbody2D rb;
     Animator anim;
     NavMeshAgent agent;
+    SpriteRenderer sp;
     // Start is called before the first frame update
     void Start()
     {
         //rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        sp = GetComponent<SpriteRenderer>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
     }
@@ -74,7 +76,7 @@ public class Enemy : MonoBehaviour
         {
             agent.SetDestination(target.transform.position);
             anim.SetInteger("Moving", 1);
-            delayAttack = 1.5f;
+            delayAttack = 0.1f;
         }
             
         else if (distanceAttack > vectorVelocity.magnitude)
@@ -95,7 +97,7 @@ public class Enemy : MonoBehaviour
         if (getDamage)
         {
             Vector2 vec = new Vector2(deltaX, deltaY).normalized;
-            agent.velocity = vec * -4f;
+            agent.velocity = vec * -2f;
             StartCoroutine(ResetDamage());
         }
     }
@@ -125,7 +127,9 @@ public class Enemy : MonoBehaviour
 
     IEnumerator ResetDamage()
     {
+        sp.color = Color.grey;
         yield return new WaitForSeconds(0.5f);
         getDamage = false;
+        sp.color = Color.white;
     }
 }

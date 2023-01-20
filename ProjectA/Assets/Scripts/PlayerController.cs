@@ -250,7 +250,11 @@ public class PlayerController : Player
     {
         var damage = 1 - armor;
         hp -= damage;
-        rb.AddForce(Vector2.left * 1f, ForceMode2D.Impulse);
+        if (hp == 0)
+        {
+            //died
+        }
+        //rb.AddForce(Vector2.left * 1f, ForceMode2D.Impulse);
     }
 
     // поворот, анимации атаки и запуск анимации движения: x, y - коориданты point; angle - необходимый уровень поворота; scaleX - направление игрока; move - анимации движения

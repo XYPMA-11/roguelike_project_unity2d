@@ -17,6 +17,7 @@ public class HealthCheck : MonoBehaviour
             var point = hp.transform.position;
             var vector = new Vector3(point.x + i * 100f, point.y, point.z);
             var newHp = Instantiate(hp, vector, Quaternion.identity, health.transform);
+            newHp.SetActive(true);
             listHp.Add(newHp);
         }
 
@@ -38,6 +39,6 @@ public class HealthCheck : MonoBehaviour
             var vector = new Vector3(point.x + 100f, point.y, point.z);
             var newHp = Instantiate(hp, vector, Quaternion.identity, health.transform);
             listHp.Add(newHp);
-        }
+         }
     }
 }
